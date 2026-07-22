@@ -1,44 +1,53 @@
-const centersData=[
-{code:"127901",name:"مدرسة روز بنەڕەتی",circle:"بازنەی ١",supName:"محمد علي",supPhone:"09647123456",loc:"36.2142,46.4284"},
-{code:"127902",name:"مدرسة فقی قادر بنەڕەتی",circle:"بازنەی ١",supName:"فاتح احمد",supPhone:"09647234567",loc:"36.2156,46.4312"},
-{code:"127903",name:"مدرسة ئەردەلان بنەڕەتی",circle:"بازنەی ١",supName:"کریم عمر",supPhone:"09647345678",loc:"36.2178,46.4356"},
-{code:"127904",name:"کۆلێژی پەروەردە",circle:"بازنەی ١",supName:"سلیمان رسول",supPhone:"09647456789",loc:"36.2195,46.4398"},
-{code:"127905",name:"ئامادەیی تەوار بۆ کچان",circle:"بازنەی ١",supName:"عائشة محمود",supPhone:"09647567890",loc:"36.2212,46.4445"},
-{code:"127906",name:"ناوەندی زانستیاری",circle:"بازنەی ١",supName:"ياسين خالد",supPhone:"09647678901",loc:"36.2234,46.4489"},
-{code:"127907",name:"مدرسة خالد بنەڕەتی",circle:"بازنەی ١",supName:"امين سعيد",supPhone:"09647789012",loc:"36.2256,46.4534"},
-{code:"227901",name:"مدرسة جەمجەماڵ بنەڕەتی",circle:"بازنەی ٢",supName:"محمود حسن",supPhone:"09647890123",loc:"36.1845,46.4012"},
-{code:"227902",name:"مدرسة ئەختەر بنەڕەتی",circle:"بازنەی ٢",supName:"نور الدين",supPhone:"09647901234",loc:"36.1867,46.4089"},
-{code:"227903",name:"مدرسة شەهید بنەڕەتی",circle:"بازنەی ٢",supName:"حسين علي",supPhone:"09648012345",loc:"36.1889,46.4156"},
-{code:"227904",name:"مدرسة سپی‌حسار بنەڕەتی",circle:"بازنەی ٢",supName:"فاطمة احمد",supPhone:"09648123456",loc:"36.1912,46.4223"},
-{code:"227905",name:"ئامادەیی جەمجەماڵ",circle:"بازنەی ٢",supName:"عبد الله خالد",supPhone:"09648234567",loc:"36.1934,46.4289"},
-{code:"227906",name:"ناوەندی جەمی ڕێزان",circle:"بازنەی ٢",supName:"صالح محمد",supPhone:"09648345678",loc:"36.1956,46.4356"},
-{code:"227907",name:"ناوەندی ڕەنگین بۆ کچان",circle:"بازنەی ٢",supName:"علياء يوسف",supPhone:"09648456789",loc:"36.1978,46.4423"},
-{code:"227908",name:"مدرسة قەرەوەیس بنەڕەتی",circle:"بازنەی ٢",supName:"محمد حسين",supPhone:"09648567890",loc:"36.2001,46.4489"},
-{code:"128001",name:"مدرسة پێشوا بنەڕەتی",circle:"بازنەی ٣",supName:"قاسم رسول",supPhone:"09648678901",loc:"36.2456,46.3612"},
-{code:"128002",name:"مدرسة باکوکور بنەڕەتی",circle:"بازنەی ٣",supName:"رقية علي",supPhone:"09648789012",loc:"36.2478,46.3678"},
-{code:"128003",name:"مدرسة ڕزگاری بنەڕەتی",circle:"بازنەی ٣",supName:"زكريا حمد",supPhone:"09648890123",loc:"36.2501,46.3745"},
-{code:"128004",name:"مدرسة ناری بنەڕەتی",circle:"بازنەی ٣",supName:"سعاد محمود",supPhone:"09648901234",loc:"36.2523,46.3812"},
-{code:"128005",name:"مدرسة بڵند بنەڕەتی",circle:"بازنەی ٣",supName:"خالد عمر",supPhone:"09649012345",loc:"36.2545,46.3878"},
-{code:"128006",name:"مدرسة خالاخان بنەڕەتی",circle:"بازنەی ٣",supName:"نبيلة سلیمان",supPhone:"09649123456",loc:"36.2567,46.3945"},
-{code:"128007",name:"ناوەندی نیشتمان",circle:"بازنەی ٣",supName:"رياض محمد",supPhone:"09649234567",loc:"36.2589,46.4012"},
-{code:"128008",name:"مدرسة ڕێباز بنەڕەتی",circle:"بازنەی ٣",supName:"ليلى احمد",supPhone:"09649345678",loc:"36.2612,46.4078"},
-{code:"128009",name:"مدرسة زیرەک بنەڕەتی",circle:"بازنەی ٣",supName:"اسماعيل حسن",supPhone:"09649456789",loc:"36.2634,46.4145"},
-{code:"228001",name:"ناوەندی سەنگاو بۆ کوڕان",circle:"بازنەی ٣",supName:"سميرة علي",supPhone:"09649567890",loc:"36.2656,46.4212"},
-{code:"229401",name:"مدرسة ئاریا بنەڕەتی",circle:"بازنەی ٣",supName:"محمود ياسين",supPhone:"09649678901",loc:"36.2678,46.4278"},
-{code:"229402",name:"مدرسة قەڵاسیوکەی بنەڕەتی",circle:"بازنەی ٣",supName:"حليمة محمد",supPhone:"09649789012",loc:"36.2701,46.4345"},
-{code:"129401",name:"مدرسة بوتان بنەڕەتی",circle:"بازنەی ٤",supName:"جمال علي",supPhone:"09649890123",loc:"36.1234,46.3234"},
-{code:"129402",name:"مدرسة دابان بنەڕەتی",circle:"بازنەی ٤",supName:"دينا محمود",supPhone:"09649901234",loc:"36.1256,46.3301"},
-{code:"129403",name:"مدرسة دەرسیم بنەڕەتی",circle:"بازنەی ٤",supName:"سامي حسين",supPhone:"09650012345",loc:"36.1278,46.3367"},
-{code:"129404",name:"مدرسة ماردین بنەڕەتی",circle:"بازنەی ٤",supName:"شهيرة علي",supPhone:"09650123456",loc:"36.1301,46.3434"},
-{code:"129405",name:"ناوەندی تەکیە",circle:"بازنەی ٤",supName:"ياسر محمد",supPhone:"09650234567",loc:"36.1323,46.3501"},
-{code:"129406",name:"مدرسة بەردەقەرمان بنەڕەتی",circle:"بازنەی ٤",supName:"نادية احمد",supPhone:"09650345678",loc:"36.1345,46.3567"}
+const defaultCentersData=[
+{code:"127901", short:"ro", name:"مدرسة روز بنەڕەتی", circle:"بازنەی ١",supName:"محمد علي",supPhone:"09647123456",loc:"36.2142,46.4284"},
+{code:"127902", short:"fq", name:"مدرسة فقی قادر بنەڕەتی", circle:"بازنەی ١",supName:"فاتح احمد",supPhone:"09647234567",loc:"36.2156,46.4312"},
+{code:"127903", short:"ar", name:"مدرسة ئەردەلان بنەڕەتی", circle:"بازنەی ١",supName:"کریم عمر",supPhone:"09647345678",loc:"36.2178,46.4356"},
+{code:"127904", short:"kp", name:"کۆلێژی پەروەردە", circle:"بازنەی ١",supName:"سلیمان رسول",supPhone:"09647456789",loc:"36.2195,46.4398"},
+{code:"127905", short:"tw", name:"ئامادەیی تەوار بۆ کچان", circle:"بازنەی ١",supName:"عائشة محمود",supPhone:"09647567890",loc:"36.2212,46.4445"},
+{code:"127906", short:"za", name:"ناوەندی زانستیاری", circle:"بازنەی ١",supName:"ياسين خالد",supPhone:"09647678901",loc:"36.2234,46.4489"},
+{code:"127907", short:"kh", name:"مدرسة خالد بنەڕەتی", circle:"بازنەی ١",supName:"امين سعيد",supPhone:"09647789012",loc:"36.2256,46.4534"},
+{code:"227901", short:"ja", name:"مدرسة جەمجەماڵ بنەڕەتی", circle:"بازنەی ٢",supName:"محمود حسن",supPhone:"09647890123",loc:"36.1845,46.4012"},
+{code:"227902", short:"ax", name:"مدرسة ئەختەر بنەڕەتی", circle:"بازنەی ٢",supName:"نور الدين",supPhone:"09647901234",loc:"36.1867,46.4089"},
+{code:"227903", short:"sh", name:"مدرسة شەهید بنەڕەتی", circle:"بازنەی ٢",supName:"حسين علي",supPhone:"09648012345",loc:"36.1889,46.4156"},
+{code:"227904", short:"sp", name:"مدرسة سپی‌حسار بنەڕەتی", circle:"بازنەی ٢",supName:"فاطمة احمد",supPhone:"09648123456",loc:"36.1912,46.4223"},
+{code:"227905", short:"aj", name:"ئامادەیی جەمجەماڵ", circle:"بازنەی ٢",supName:"عبد الله خالد",supPhone:"09648234567",loc:"36.1934,46.4289"},
+{code:"227906", short:"jr", name:"ناوەندی جەمی ڕێزان", circle:"بازنەی ٢",supName:"صالح محمد",supPhone:"09648345678",loc:"36.1956,46.4356"},
+{code:"227907", short:"rn", name:"ناوەندی ڕەنگین بۆ کچان", circle:"بازنەی ٢",supName:"علياء يوسف",supPhone:"09648456789",loc:"36.1978,46.4423"},
+{code:"227908", short:"qa", name:"مدرسة قەرەوەیس بنەڕەتی", circle:"بازنەی ٢",supName:"محمد حسين",supPhone:"09648567890",loc:"36.2001,46.4489"},
+{code:"128001", short:"pi", name:"مدرسة پێشوا بنەڕەتی", circle:"بازنەی ٣",supName:"قاسم رسول",supPhone:"09648678901",loc:"36.2456,46.3612"},
+{code:"128002", short:"ba", name:"مدرسة باکوکور بنەڕەتی", circle:"بازنەی ٣",supName:"رقية علي",supPhone:"09648789012",loc:"36.2478,46.3678"},
+{code:"128003", short:"rz", name:"مدرسة ڕزگاری بنەڕەتی", circle:"بازنەی ٣",supName:"زكريا حمد",supPhone:"09648890123",loc:"36.2501,46.3745"},
+{code:"128004", short:"na", name:"مدرسة ناری بنەڕەتی", circle:"بازنەی ٣",supName:"سعاد محمود",supPhone:"09648901234",loc:"36.2523,46.3812"},
+{code:"128005", short:"bl", name:"مدرسة بڵند بنەڕەتی", circle:"بازنەی ٣",supName:"خالد عمر",supPhone:"09649012345",loc:"36.2545,46.3878"},
+{code:"128006", short:"xl", name:"مدرسة خالاخان بنەڕەتی", circle:"بازنەی ٣",supName:"نبيلة سلیمان",supPhone:"09649123456",loc:"36.2567,46.3945"},
+{code:"128007", short:"ni", name:"ناوەندی نیشتمان", circle:"بازنەی ٣",supName:"رياض محمد",supPhone:"09649234567",loc:"36.2589,46.4012"},
+{code:"128008", short:"ri", name:"مدرسة ڕێباز بنەڕەتی", circle:"بازنەی ٣",supName:"ليلى احمد",supPhone:"09649345678",loc:"36.2612,46.4078"},
+{code:"128009", short:"zi", name:"مدرسة زیرەک بنەڕەتی", circle:"بازنەی ٣",supName:"اسماعيل حسن",supPhone:"09649456789",loc:"36.2634,46.4145"},
+{code:"228001", short:"sn", name:"ناوەندی سەنگاو بۆ کوڕان", circle:"بازنەی ٣",supName:"سميرة علي",supPhone:"09649567890",loc:"36.2656,46.4212"},
+{code:"229401", short:"ay", name:"مدرسة ئاریا بنەڕەتی", circle:"بازنەی ٣",supName:"محمود ياسين",supPhone:"09649678901",loc:"36.2678,46.4278"},
+{code:"229402", short:"ql", name:"مدرسة قەڵاسیوکەی بنەڕەتی", circle:"بازنەی ٣",supName:"حليمة محمد",supPhone:"09649789012",loc:"36.2701,46.4345"},
+{code:"129401", short:"bo", name:"مدرسة بوتان بنەڕەتی", circle:"بازنەی ٤",supName:"جمال علي",supPhone:"09649890123",loc:"36.1234,46.3234"},
+{code:"129402", short:"da", name:"مدرسة دابان بنەڕەتی", circle:"بازنەی ٤",supName:"دينا محمود",supPhone:"09649901234",loc:"36.1256,46.3301"},
+{code:"129403", short:"de", name:"مدرسة دەرسیم بنەڕەتی", circle:"بازنەی ٤",supName:"سامي حسين",supPhone:"09650012345",loc:"36.1278,46.3367"},
+{code:"129404", short:"ma", name:"مدرسة ماردین بنەڕەتی", circle:"بازنەی ٤",supName:"شهيرة علي",supPhone:"09650123456",loc:"36.1301,46.3434"},
+{code:"129405", short:"ta", name:"ناوەندی تەکیە", circle:"بازنەی ٤",supName:"ياسر محمد",supPhone:"09650234567",loc:"36.1323,46.3501"},
+{code:"129406", short:"bq", name:"مدرسة بەردەقەرمان بنەڕەتی", circle:"بازنەی ٤",supName:"نادية احمد",supPhone:"09650345678",loc:"36.1345,46.3567"}
 ];
 
-const users=[{username:"admin",password:"123",role:"admin",center:"ژووری عەمەلیات"}];
-centersData.forEach(c=>{for(let i=1;i<=5;i++){users.push({username:c.code+"-s"+i,password:"123",role:"observer",circle:c.circle,center:c.name,station:"وێستگەی "+i,supPhone:c.supPhone,loc:c.loc});}});
+// داتاکان لە LocalStorage دەخوێنێتەوە بۆ ئەوەی دوای ڕیفرێش نەگۆڕێن
+let centersData = JSON.parse(localStorage.getItem('electionCentersData'));
+if(!centersData) {
+    centersData = defaultCentersData;
+    localStorage.setItem('electionCentersData', JSON.stringify(centersData));
+}
+
+let users=[{username:"admin",password:"123",role:"admin",center:"ژووری عەمەلیات"}];
+// پاسوۆرد کرا بە 123، ناوی بەکارهێنەر کرا بە دوو پیتی سەرەتا و ژمارەی وێستگە (نموونە: fq1)
+centersData.forEach(c=>{for(let i=1;i<=5;i++){users.push({username:c.short+i, password:"123", role:"observer",circle:c.circle,center:c.name,station:"وێستگەی "+i,supPhone:c.supPhone,loc:c.loc});}});
 
 const timeLabels={"10":"١٠:٠٠ بەیانی","11":"١١:٠٠ بەیانی","12":"١٢:٠٠ نیوەڕۆ","13":"٠١:٠٠ پاشنیوەڕۆ","14":"٠٢:٠٠ پاشنیوەڕۆ","15":"٠٣:٠٠ پاشنیوەڕۆ","16":"٠٤:٠٠ پاشنیوەڕۆ","17":"٠٥:٠٠ پاشنیوەڕۆ","18":"٠٦:٠٠ ئێوارە"};
 let currentUser=null;
+let html5QrcodeScanner = null;
 
 window.addEventListener('online',()=>updateNetwork(true));
 window.addEventListener('offline',()=>updateNetwork(false));
@@ -80,7 +89,38 @@ window.onload=()=>{
     if(saved){currentUser=JSON.parse(saved);routeUser();}
 };
 
-function login(){const u=document.getElementById('username').value.trim(),p=document.getElementById('password').value.trim(),err=document.getElementById('loginError');const user=users.find(x=>x.username===u&&x.password===p);if(user){currentUser=user;localStorage.setItem('electionUser',JSON.stringify(user));err.classList.add('hidden');document.getElementById('username').value='';document.getElementById('password').value='';routeUser();}else{err.classList.remove('hidden');}}
+// کۆدەکانی کامێرای QR
+function startScanner() {
+    document.getElementById('qr-reader-container').classList.remove('hidden');
+    if (!html5QrcodeScanner) {
+        html5QrcodeScanner = new Html5Qrcode("reader");
+    }
+    html5QrcodeScanner.start(
+        { facingMode: "environment" }, // بەکارهێنانی کامێرای پشتەوە
+        { fps: 10, qrbox: {width: 250, height: 250} },
+        (decodedText) => {
+            document.getElementById('username').value = decodedText.trim();
+            stopScanner();
+            document.getElementById('password').focus();
+        },
+        (errorMessage) => { /* فەرامۆشکردنی هەڵەی نەدۆزینەوەی کاتی */ }
+    ).catch((err) => {
+        alert("تکایە ڕێگە بە بەکارهێنانی کامێرا بدە.");
+        document.getElementById('qr-reader-container').classList.add('hidden');
+    });
+}
+
+function stopScanner() {
+    if (html5QrcodeScanner) {
+        html5QrcodeScanner.stop().then(() => {
+            document.getElementById('qr-reader-container').classList.add('hidden');
+        }).catch(err => console.log(err));
+    } else {
+        document.getElementById('qr-reader-container').classList.add('hidden');
+    }
+}
+
+function login(){const u=document.getElementById('username').value.trim().toLowerCase(),p=document.getElementById('password').value.trim(),err=document.getElementById('loginError');const user=users.find(x=>x.username.toLowerCase()===u&&x.password===p);if(user){currentUser=user;localStorage.setItem('electionUser',JSON.stringify(user));err.classList.add('hidden');document.getElementById('username').value='';document.getElementById('password').value='';routeUser();}else{err.classList.remove('hidden');}}
 
 function logout(){localStorage.removeItem('electionUser');currentUser=null;document.getElementById('dashboardSection').classList.add('hidden');document.getElementById('adminDashboardSection').classList.add('hidden');document.getElementById('loginSection').classList.remove('hidden');}
 
@@ -89,7 +129,7 @@ function routeUser(){currentUser.role==='admin'?showAdminDashboard():showDashboa
 function showDashboard(){
     document.getElementById('loginSection').classList.add('hidden');document.getElementById('adminDashboardSection').classList.add('hidden');document.getElementById('dashboardSection').classList.remove('hidden');
     const center=centersData.find(c=>c.name===currentUser.center);
-    document.getElementById('welcomeText').innerText="بەخێربێیت، چاودێری "+currentUser.station;
+    document.getElementById('welcomeText').innerText="بەخێربێیت، "+currentUser.station;
     let stationInfo=currentUser.circle+" | "+currentUser.center+" - "+currentUser.station;
     if(center && center.supName!=="-"){stationInfo+=` | لێپرسراو: ${center.supName}`;}
     document.getElementById('stationInfo').innerText=stationInfo;
@@ -117,7 +157,7 @@ function submitData(){const t=document.getElementById('timeSlot').value,v=parseI
 
 function showMessage(el,txt,cls){el.innerText=txt;el.className='alert-message '+cls;el.classList.remove('hidden');setTimeout(()=>el.classList.add('hidden'),3500);}
 
-function loadStationData(){const data=JSON.parse(localStorage.getItem('votes_'+currentUser.username))||[],list=document.getElementById('dataList');list.innerHTML=data.length?data.map(e=>`<li><span>دەنگدەر: <strong style="color:#1E7A46;">${e.count}</strong></span><span style="background:var(--color-primary-light);color:var(--color-primary);padding:4px 8px;border-radius:4px;font-size:12px;font-weight:700;">${e.timeLabel}</span></li>`).join(''):'<li style="text-align:center;color:var(--color-text-light);">داتا نەنێردراوە</li>';}
+function loadStationData(){const data=JSON.parse(localStorage.getItem('votes_'+currentUser.username))||[],list=document.getElementById('dataList');list.innerHTML=data.length?data.map(e=>`<li><span>دەنگدەر: <strong style="color:var(--color-primary);">${e.count}</strong></span><span style="background:var(--color-primary-light);color:var(--color-primary);padding:4px 8px;border-radius:4px;font-size:12px;font-weight:700;">${e.timeLabel}</span></li>`).join(''):'<li style="text-align:center;color:var(--color-text-light);">داتا نەنێردراوە</li>';}
 
 function showAdminDashboard(){document.getElementById('loginSection').classList.add('hidden');document.getElementById('dashboardSection').classList.add('hidden');document.getElementById('adminDashboardSection').classList.remove('hidden');initAdminFilters();calculateFilteredStats();setTimeout(renderCentersConfig,300);}
 
@@ -136,14 +176,29 @@ function renderCentersConfig(){
     centersData.forEach(center=>{
         const row=document.createElement('div');
         row.style.cssText='background:var(--color-bg);padding:12px;margin-bottom:8px;border-radius:8px;border:1px solid var(--color-border);';
-        row.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="flex:1;"><p style="margin:0;font-weight:700;color:var(--color-text);">${center.name}</p><p style="margin:4px 0;font-size:12px;color:var(--color-text-light);">${center.circle}</p></div><button onclick="toggleEditCenter('${center.code}')" style="padding:6px 12px;background:#1E7A46;color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:12px;">✏️ دەستکاری</button></div><div id="edit-${center.code}" style="display:none;background:var(--color-card);padding:12px;border-radius:6px;margin-top:8px;"><div style="margin-bottom:8px;"><label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;color:var(--color-text);">ناوی سیان</label><input type="text" id="sup-name-${center.code}" value="${center.supName}" style="width:100%;padding:6px;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-text);border-radius:4px;font-size:12px;"></div><div style="margin-bottom:8px;"><label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;color:var(--color-text);">ژمارەی مۆبایل</label><input type="text" id="sup-phone-${center.code}" value="${center.supPhone}" placeholder="964xxxxxxxxx" style="width:100%;padding:6px;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-text);border-radius:4px;font-size:12px;"></div><div style="margin-bottom:8px;"><label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;color:var(--color-text);">نقشە (lat,lng)</label><input type="text" id="sup-loc-${center.code}" value="${center.loc}" placeholder="36.2142,46.4284" style="width:100%;padding:6px;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-text);border-radius:4px;font-size:12px;"></div><button onclick="saveSupInfo('${center.code}')" style="width:100%;padding:8px;background:#25D366;color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:12px;">💾 پاشکۆکردن</button></div>`;
+        row.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="flex:1;"><p style="margin:0;font-weight:700;color:var(--color-text);">${center.name} (${center.short})</p><p style="margin:4px 0;font-size:12px;color:var(--color-text-light);">${center.circle}</p></div><button onclick="toggleEditCenter('${center.code}')" style="padding:6px 12px;background:#1E7A46;color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:12px;">✏️ دەستکاری</button></div><div id="edit-${center.code}" style="display:none;background:var(--color-card);padding:12px;border-radius:6px;margin-top:8px;"><div style="margin-bottom:8px;"><label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;color:var(--color-text);">ناوی سیان</label><input type="text" id="sup-name-${center.code}" value="${center.supName}" style="width:100%;padding:6px;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-text);border-radius:4px;font-size:12px;"></div><div style="margin-bottom:8px;"><label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;color:var(--color-text);">ژمارەی مۆبایل</label><input type="text" id="sup-phone-${center.code}" value="${center.supPhone}" placeholder="964xxxxxxxxx" style="width:100%;padding:6px;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-text);border-radius:4px;font-size:12px;"></div><div style="margin-bottom:8px;"><label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;color:var(--color-text);">نەخشە (lat,lng)</label><input type="text" id="sup-loc-${center.code}" value="${center.loc}" placeholder="36.2142,46.4284" style="width:100%;padding:6px;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-text);border-radius:4px;font-size:12px;"></div><button onclick="saveSupInfo('${center.code}')" style="width:100%;padding:8px;background:#25D366;color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:12px;">💾 پاشکەوتکردن</button></div>`;
         configList.appendChild(row);
     });
 }
 
 function toggleEditCenter(code){const editDiv=document.getElementById('edit-'+code);if(editDiv) editDiv.style.display=editDiv.style.display==='none'?'block':'none';}
 
-function saveSupInfo(code){const supName=document.getElementById('sup-name-'+code).value;const supPhone=document.getElementById('sup-phone-'+code).value;const supLoc=document.getElementById('sup-loc-'+code).value;const center=centersData.find(c=>c.code===code);if(center){center.supName=supName;center.supPhone=supPhone;center.loc=supLoc;users.forEach(u=>{if(u.center===center.name){u.supPhone=supPhone;u.loc=supLoc;}});alert('✅ سەرکەوتووبوو! زانیارییەکان نوێ کرانەوە');renderCentersConfig();}}
+// لۆجیکی نوێی سەیڤکردنی ڕێکخستنەکان (بۆ ئەوەی نەگەڕێتەوە کاتی ڕیفرێش)
+function saveSupInfo(code){
+    const supName=document.getElementById('sup-name-'+code).value;
+    const supPhone=document.getElementById('sup-phone-'+code).value;
+    const supLoc=document.getElementById('sup-loc-'+code).value;
+    const center=centersData.find(c=>c.code===code);
+    if(center){
+        center.supName=supName;
+        center.supPhone=supPhone;
+        center.loc=supLoc;
+        users.forEach(u=>{if(u.center===center.name){u.supPhone=supPhone;u.loc=supLoc;}});
+        localStorage.setItem('electionCentersData', JSON.stringify(centersData));
+        alert('✅ سەرکەوتووبوو! زانیارییەکان جێگیر کران.');
+        renderCentersConfig();
+    }
+}
 
 function initAdminFilters(){const s=document.getElementById('filterCircle');s.innerHTML='<option value="all">هەموو بازنەکان</option>'+[...new Set(centersData.map(c=>c.circle))].map(c=>`<option value="${c}">${c}</option>`).join('');}
 
@@ -155,6 +210,15 @@ function loadAdminTimeData(){
     const t=document.getElementById('adminTimeFilter').value;
     const mTab=document.getElementById('missingDataTable');
     const sTab=document.getElementById('sentDataTable');
+    
+    // پاککردنەوەی خشتە
+    if (t === 'clear') {
+        mTab.innerHTML='<tr><td colspan="5" class="empty-cell">خشتە پاککرایەوە</td></tr>';
+        sTab.innerHTML='<tr><td colspan="5" class="empty-cell">خشتە پاککرایەوە</td></tr>';
+        document.getElementById('adminTimeFilter').value = '';
+        return;
+    }
+    
     if(!t)return;
     
     let cir=document.getElementById('filterCircle').value;
@@ -181,8 +245,8 @@ function loadAdminTimeData(){
         }
     });
     
-    if(!mC)mTab.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--color-primary);font-weight:700;">هەمووان ناردوویانە</td></tr>';
-    if(!sC)sTab.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--color-danger);font-weight:700;">کەس نەناردووە</td></tr>';
+    if(!mC)mTab.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--color-primary);font-weight:700;">هەمووان ناردویانە</td></tr>';
+    if(!sC)sTab.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--color-danger);font-weight:700;">کەس نەیانناردووە</td></tr>';
 }
 
 function exportToExcel(){let csv='\uFEFFبازنە,بنکە,وێستگە,کاتژمێر,ژمارەی دەنگدەر,ڕێژەی سەدی\n';users.filter(u=>u.role==='observer').forEach(u=>{(JSON.parse(localStorage.getItem('votes_'+u.username))||[]).forEach(d=>{csv+=`${u.circle},${u.center},${u.station},${d.timeLabel},${d.count},${(d.count/450*100).toFixed(1)}%\n`;});});const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));a.download=`Election_Report_${new Date().toLocaleTimeString()}.csv`;a.click();}
