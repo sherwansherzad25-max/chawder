@@ -5,16 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>سیستەمی ئەلیکترۆنی هەڵبژاردن</title>
     
-    <!-- PWA Settings (ئایکۆنی سەر شاشەی مۆبایل) -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1E7A46">
     <link rel="apple-touch-icon" href="22.png">
-    
     <link rel="icon" href="22.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
     <link rel="stylesheet" href="style.css">
-    
-    <!-- QR Code Library -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 </head>
 <body>
@@ -25,7 +21,6 @@
         <div class="row justify-content-center" id="loginSection">
             <div class="col-12 col-md-6 col-lg-4 login-box">
                 <div class="logo-section">
-                    <!-- لۆگۆی ناوەوەی بەرنامەکە -->
                     <img src="1.jpg" alt="Logo" class="app-logo">
                     <h2>ڕۆژی هەڵبژاردن</h2>
                 </div>
@@ -35,7 +30,7 @@
                 <div class="form-group">
                     <label>ناوی بەکارهێنەر</label>
                     <div class="d-flex gap-2">
-                        <input type="text" id="username" placeholder="ناوی بەکارهێنەر بنووسە" autocomplete="off" style="font-size: 16px;">
+                        <input type="text" id="username" placeholder="ناوی بەکارهێنەر بنووسە" autocomplete="off" autocapitalize="none" spellcheck="false" style="font-size: 16px;">
                         <button class="btn-qr" onclick="startScanner()" type="button">📷</button>
                     </div>
                 </div>
@@ -47,7 +42,7 @@
 
                 <div class="form-group">
                     <label>وشەی نهێنی</label>
-                    <input type="password" id="password" placeholder="وشەی نهێنی بنووسە" style="font-size: 16px;">
+                    <input type="password" id="password" placeholder="وشەی نهێنی بنووسە" autocapitalize="none" style="font-size: 16px;">
                 </div>
                 <button class="btn-submit" onclick="login()">
                     <div class="btn-inner">چوونەژوورەوە</div>
@@ -64,7 +59,6 @@
             <div class="col-12 col-md-10 col-lg-8 dashboard-box">
                 <div class="dashboard-header">
                     <div class="d-flex align-items-center gap-3 header-title-section">
-                        <!-- لۆگۆی ناوەوەی بەرنامەکە -->
                         <img src="1.jpg" alt="Logo" class="dashboard-logo">
                         <div>
                             <h3>چاودێری وێستگە</h3>
@@ -121,6 +115,16 @@
                         </svg>
                     </div>
                 </button>
+
+                <!-- بەشی ناردنی تێبینی / کێشە لەلایەن چاودێرەوە -->
+                <div class="form-section" style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--color-border);">
+                    <label class="section-title" style="color: var(--color-danger);">⚠️ ناردنی تێبینی یان کێشە بۆ ژووری عەمەلیات</label>
+                    <textarea id="observerNoteText" rows="2" placeholder="ئەگەر کێشەیەک هەیە لێرە بنووسە..." style="width:100%; padding:10px; border:1.5px solid var(--color-border); border-radius:var(--radius-sm); background:var(--color-card); color:var(--color-text); font-family:inherit; font-size:14px; margin-bottom:8px;"></textarea>
+                    <button class="btn-submit" onclick="sendObserverNote()" style="background: none;">
+                        <div class="btn-inner" style="background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);">ناردنی تێبینی</div>
+                    </button>
+                    <div id="noteReplyBox" class="hidden" style="margin-top: 12px; padding: 12px; background: var(--color-primary-light); color: var(--color-primary); border-radius: var(--radius-sm); font-size: 13px; font-weight: 600;"></div>
+                </div>
                 
                 <div class="data-history">
                     <h5>داتای نێردراوی پێشووی ئەم وێستگەیە</h5>
@@ -133,7 +137,6 @@
             <div class="col-12 col-lg-11 admin-box">
                 <div class="admin-header">
                     <div class="d-flex align-items-center gap-3 header-title-section">
-                        <!-- لۆگۆی ناوەوەی بەرنامەکە -->
                         <img src="1.jpg" alt="Logo" class="dashboard-logo">
                         <div>
                             <h3>ژووری عەمەلیات</h3>
@@ -152,6 +155,21 @@
                             <div class="btn-inner">چوونەدەرەوە</div>
                         </button>
                     </div>
+                </div>
+
+                <!-- بەشی ئاگادارکردنەوەی تێبینییەکان و ناردنی پەیامی ڕاستەوخۆ لەلای ئەدمین -->
+                <div id="adminNotesAlertSection" class="hidden" style="background: var(--color-danger-light); border: 1.5px solid var(--color-danger); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px;">
+                    <h5 style="color: var(--color-danger); margin-top: 0; font-size: 16px; font-weight: 700;">🔔 تێبینی و کێشە نێردراوەکانی چاودێرەکان</h5>
+                    <div id="adminNotesList" style="display: flex; flex-direction: column; gap: 10px; max-height: 250px; overflow-y: auto;"></div>
+                </div>
+
+                <!-- بەشی ناردنی پەیام یان ڕێنمایی گشتی لەلایەن ئەدمینەوە -->
+                <div style="background: var(--color-primary-light); border: 1.5px solid var(--color-primary); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px;">
+                    <h5 style="color: var(--color-primary); margin-top: 0; font-size: 16px; font-weight: 700;">💬 ناردنی پەیام و ڕێنمایی بۆ چاودێرەکان</h5>
+                    <textarea id="adminBroadcastMsg" rows="2" placeholder="پەیامەکەت لێرە بنووسە بۆ هەموو چاودێرەکان..." style="width:100%; padding:10px; border:1.5px solid var(--color-border); border-radius:var(--radius-sm); background:var(--color-card); color:var(--color-text); font-family:inherit; font-size:14px; margin-bottom:8px;"></textarea>
+                    <button class="btn-submit" onclick="sendAdminBroadcast()" style="background: none; width: auto; min-width: 150px;">
+                        <div class="btn-inner" style="padding: 8px 16px; font-size: 13px;">ناردنی پەیام</div>
+                    </button>
                 </div>
 
                 <div class="filter-section">
@@ -235,11 +253,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').then(reg => {
-                    console.log('PWA Service Worker Registered', reg);
-                }).catch(err => {
-                    console.log('Service Worker Failed', err);
-                });
+                navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
             });
         }
     </script>
