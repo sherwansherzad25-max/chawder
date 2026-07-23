@@ -34,7 +34,6 @@ const defaultCentersData=[
 {code:"129406", short:"bq", name:"مدرسة بەردەقەرمان بنەڕەتی", circle:"بازنەی ٤",supName:"نادية احمد",supPhone:"09650345678",loc:"36.1345,46.3567"}
 ];
 
-// داتاکان لە LocalStorage دەخوێنێتەوە بۆ ئەوەی دوای ڕیفرێش نەگۆڕێن
 let centersData = JSON.parse(localStorage.getItem('electionCentersData'));
 if(!centersData) {
     centersData = defaultCentersData;
@@ -42,7 +41,6 @@ if(!centersData) {
 }
 
 let users=[{username:"admin",password:"123",role:"admin",center:"ژووری عەمەلیات"}];
-// پاسوۆرد کرا بە 123، ناوی بەکارهێنەر کرا بە دوو پیتی سەرەتا و ژمارەی وێستگە (نموونە: fq1)
 centersData.forEach(c=>{for(let i=1;i<=5;i++){users.push({username:c.short+i, password:"123", role:"observer",circle:c.circle,center:c.name,station:"وێستگەی "+i,supPhone:c.supPhone,loc:c.loc});}});
 
 const timeLabels={"10":"١٠:٠٠ بەیانی","11":"١١:٠٠ بەیانی","12":"١٢:٠٠ نیوەڕۆ","13":"٠١:٠٠ پاشنیوەڕۆ","14":"٠٢:٠٠ پاشنیوەڕۆ","15":"٠٣:٠٠ پاشنیوەڕۆ","16":"٠٤:٠٠ پاشنیوەڕۆ","17":"٠٥:٠٠ پاشنیوەڕۆ","18":"٠٦:٠٠ ئێوارە"};
@@ -89,21 +87,20 @@ window.onload=()=>{
     if(saved){currentUser=JSON.parse(saved);routeUser();}
 };
 
-// کۆدەکانی کامێرای QR
 function startScanner() {
     document.getElementById('qr-reader-container').classList.remove('hidden');
     if (!html5QrcodeScanner) {
         html5QrcodeScanner = new Html5Qrcode("reader");
     }
     html5QrcodeScanner.start(
-        { facingMode: "environment" }, // بەکارهێنانی کامێرای پشتەوە
+        { facingMode: "environment" },
         { fps: 10, qrbox: {width: 250, height: 250} },
         (decodedText) => {
-            document.getElementById('username').value = decodedText.trim();
+            document.getElementById('username').value = decodedText.trim().toLowerCase();
             stopScanner();
             document.getElementById('password').focus();
         },
-        (errorMessage) => { /* فەرامۆشکردنی هەڵەی نەدۆزینەوەی کاتی */ }
+        (errorMessage) => {}
     ).catch((err) => {
         alert("تکایە ڕێگە بە بەکارهێنانی کامێرا بدە.");
         document.getElementById('qr-reader-container').classList.add('hidden');
@@ -120,14 +117,37 @@ function stopScanner() {
     }
 }
 
-function login(){const u=document.getElementById('username').value.trim().toLowerCase(),p=document.getElementById('password').value.trim(),err=document.getElementById('loginError');const user=users.find(x=>x.username.toLowerCase()===u&&x.password===p);if(user){currentUser=user;localStorage.setItem('electionUser',JSON.stringify(user));err.classList.add('hidden');document.getElementById('username').value='';document.getElementById('password').value='';routeUser();}else{err.classList.remove('hidden');}}
+function login(){
+    const u=document.getElementById('username').value.trim().toLowerCase();
+    const p=document.getElementById('password').value.trim();
+    const err=document.getElementById('loginError');
+    const user=users.find(x=>x.username.toLowerCase()===u && x.password===p);
+    if(user){
+        currentUser=user;
+        localStorage.setItem('electionUser',JSON.stringify(user));
+        err.classList.add('hidden');
+        document.getElementById('username').value='';
+        document.getElementById('password').value='';
+        routeUser();
+    }else{
+        err.classList.remove('hidden');
+    }
+}
 
-function logout(){localStorage.removeItem('electionUser');currentUser=null;document.getElementById('dashboardSection').classList.add('hidden');document.getElementById('adminDashboardSection').classList.add('hidden');document.getElementById('loginSection').classList.remove('hidden');}
+function logout(){
+    localStorage.removeItem('electionUser');
+    currentUser=null;
+    document.getElementById('dashboardSection').classList.add('hidden');
+    document.getElementById('adminDashboardSection').classList.add('hidden');
+    document.getElementById('loginSection').classList.remove('hidden');
+}
 
 function routeUser(){currentUser.role==='admin'?showAdminDashboard():showDashboard();}
 
 function showDashboard(){
-    document.getElementById('loginSection').classList.add('hidden');document.getElementById('adminDashboardSection').classList.add('hidden');document.getElementById('dashboardSection').classList.remove('hidden');
+    document.getElementById('loginSection').classList.add('hidden');
+    document.getElementById('adminDashboardSection').classList.add('hidden');
+    document.getElementById('dashboardSection').classList.remove('hidden');
     const center=centersData.find(c=>c.name===currentUser.center);
     document.getElementById('welcomeText').innerText="بەخێربێیت، "+currentUser.station;
     let stationInfo=currentUser.circle+" | "+currentUser.center+" - "+currentUser.station;
@@ -138,7 +158,19 @@ function showDashboard(){
     const dashActions=document.getElementById('dashboardActions');
     if((center && center.loc!=="-") || (center && center.supPhone!=="-")){dashActions.classList.remove('hidden');} else {dashActions.classList.add('hidden');}
     if(center && center.loc==="-"){document.getElementById('btnMapDash').classList.add('hidden');}
-    document.getElementById('timeSlot').value="";document.getElementById('voterCount').value="";document.getElementById('livePercentage').innerText="";document.getElementById('liveGaugeWrap').innerHTML="";document.getElementById('voterCount').disabled=true;const submitBtn=document.getElementById('submitBtn');submitBtn.className="btn-submit disabled";submitBtn.querySelector('.btn-inner').innerText="ناردنی داتا";renderTimeChips();loadStationData();
+    
+    document.getElementById('timeSlot').value="";
+    document.getElementById('voterCount').value="";
+    document.getElementById('livePercentage').innerText="";
+    document.getElementById('liveGaugeWrap').innerHTML="";
+    document.getElementById('voterCount').disabled=true;
+    const submitBtn=document.getElementById('submitBtn');
+    submitBtn.className="btn-submit disabled";
+    submitBtn.querySelector('.btn-inner').innerText="ناردنی داتا";
+    
+    renderTimeChips();
+    loadStationData();
+    checkObserverReply();
 }
 
 function openLocationDashboard(){const center=centersData.find(c=>c.name===currentUser.center);if(center && center.loc!=="-"){const [lat,lng]=center.loc.split(',');window.open(`https://maps.google.com/?q=${lat},${lng}`,'_blank');}}
@@ -159,7 +191,96 @@ function showMessage(el,txt,cls){el.innerText=txt;el.className='alert-message '+
 
 function loadStationData(){const data=JSON.parse(localStorage.getItem('votes_'+currentUser.username))||[],list=document.getElementById('dataList');list.innerHTML=data.length?data.map(e=>`<li><span>دەنگدەر: <strong style="color:var(--color-primary);">${e.count}</strong></span><span style="background:var(--color-primary-light);color:var(--color-primary);padding:4px 8px;border-radius:4px;font-size:12px;font-weight:700;">${e.timeLabel}</span></li>`).join(''):'<li style="text-align:center;color:var(--color-text-light);">داتا نەنێردراوە</li>';}
 
-function showAdminDashboard(){document.getElementById('loginSection').classList.add('hidden');document.getElementById('dashboardSection').classList.add('hidden');document.getElementById('adminDashboardSection').classList.remove('hidden');initAdminFilters();calculateFilteredStats();setTimeout(renderCentersConfig,300);}
+function sendObserverNote(){
+    const text = document.getElementById('observerNoteText').value.trim();
+    if(!text) return alert("تکایە تێبینییەک بنووسە");
+    let notes = JSON.parse(localStorage.getItem('election_notes') || '[]');
+    const noteObj = {
+        id: Date.now(),
+        username: currentUser.username,
+        circle: currentUser.circle,
+        center: currentUser.center,
+        station: currentUser.station,
+        text: text,
+        reply: null
+    };
+    notes.push(noteObj);
+    localStorage.setItem('election_notes', JSON.stringify(notes));
+    document.getElementById('observerNoteText').value = '';
+    alert("✅ تێبینییەکەت بە سەرکەوتوویی نێردرا بۆ ژووری عەمەلیات.");
+    checkObserverReply();
+}
+
+function checkObserverReply(){
+    let notes = JSON.parse(localStorage.getItem('election_notes') || '[]');
+    const myNotes = notes.filter(n => n.username === currentUser.username && n.reply);
+    const box = document.getElementById('noteReplyBox');
+    if(myNotes.length > 0){
+        const latest = myNotes[myNotes.length - 1];
+        box.innerHTML = `💬 <strong>وەڵامی ژووری عەمەلیات:</strong> ${latest.reply}`;
+        box.classList.remove('hidden');
+    } else {
+        box.classList.add('hidden');
+    }
+}
+
+function showAdminDashboard(){
+    document.getElementById('loginSection').classList.add('hidden');
+    document.getElementById('dashboardSection').classList.add('hidden');
+    document.getElementById('adminDashboardSection').classList.remove('hidden');
+    initAdminFilters();
+    calculateFilteredStats();
+    setTimeout(renderCentersConfig,300);
+    loadAdminNotes();
+}
+
+function loadAdminNotes(){
+    let notes = JSON.parse(localStorage.getItem('election_notes') || '[]');
+    const section = document.getElementById('adminNotesAlertSection');
+    const list = document.getElementById('adminNotesList');
+    list.innerHTML = '';
+    
+    const unreplied = notes.filter(n => !n.reply);
+    if(unreplied.length > 0){
+        section.classList.remove('hidden');
+        unreplied.forEach(n => {
+            const item = document.createElement('div');
+            item.style.cssText = 'background:var(--color-card); padding:10px; border-radius:6px; border:1px solid var(--color-danger); display:flex; justify-content:space-between; align-items:center; gap:10px;';
+            item.innerHTML = `<div style="flex:1;"><strong style="color:var(--color-danger);">${n.circle} - ${n.center} (${n.station}):</strong> <span style="color:var(--color-text);">${n.text}</span></div><button onclick="replyAdminNote(${n.id}, '${n.center}', '${n.station}')" style="background:var(--color-primary); color:white; border:none; padding:6px 12px; border-radius:4px; font-weight:700; cursor:pointer; font-size:12px; white-space:nowrap;">💬 وەڵامدانەوە</button>`;
+            list.appendChild(item);
+        });
+    } else {
+        section.classList.add('hidden');
+    }
+}
+
+function replyAdminNote(id, centerName, stationName){
+    let notes = JSON.parse(localStorage.getItem('election_notes') || '[]');
+    const note = notes.find(n => n.id === id);
+    if(note){
+        note.reply = `دەستخۆشی و سڵاوی تایبەتمان بۆ چاودێری دڵسۆز لە بنکەی ${centerName} - ${stationName}. زۆر سوپاس بۆ ئاگادارکردنەوەمان لەو کێشەیەی کە ناردت. ماندووبوون و بەدواداچوونی خێراتان جێگەی ڕێز و پێزانینمانە و ڕاستەوخۆ کاری لەسەر دەکرێت.`;
+        localStorage.setItem('election_notes', JSON.stringify(notes));
+        alert("✅ وەڵامە ئۆتۆماتیکییەکە نێردرا بۆ چاودێر.");
+        loadAdminNotes();
+    }
+}
+
+// ناردنی پەیامی گشتی لەلایەن ئەدمینەوە بۆ چاودێرەکان
+function sendAdminBroadcast(){
+    const msg = document.getElementById('adminBroadcastMsg').value.trim();
+    if(!msg) return alert("تکایە پەیامێک بنووسە");
+    let notes = JSON.parse(localStorage.getItem('election_notes') || '[]');
+    // ناردنی وەڵامێک بۆ هەموو ئەو تێبینیانەی کە هیشتا وەڵام نەدراونەتەوە یان دروستکردنی پەیامی گشتی
+    notes.forEach(n => {
+        if(!n.reply){
+            n.reply = msg;
+        }
+    });
+    localStorage.setItem('election_notes', JSON.stringify(notes));
+    document.getElementById('adminBroadcastMsg').value = '';
+    alert("✅ پەیامەکەت نێردرا.");
+    loadAdminNotes();
+}
 
 function renderCentersConfig(){
     const configDiv=document.createElement('div');
@@ -183,7 +304,6 @@ function renderCentersConfig(){
 
 function toggleEditCenter(code){const editDiv=document.getElementById('edit-'+code);if(editDiv) editDiv.style.display=editDiv.style.display==='none'?'block':'none';}
 
-// لۆجیکی نوێی سەیڤکردنی ڕێکخستنەکان (بۆ ئەوەی نەگەڕێتەوە کاتی ڕیفرێش)
 function saveSupInfo(code){
     const supName=document.getElementById('sup-name-'+code).value;
     const supPhone=document.getElementById('sup-phone-'+code).value;
@@ -211,7 +331,6 @@ function loadAdminTimeData(){
     const mTab=document.getElementById('missingDataTable');
     const sTab=document.getElementById('sentDataTable');
     
-    // پاککردنەوەی خشتە
     if (t === 'clear') {
         mTab.innerHTML='<tr><td colspan="5" class="empty-cell">خشتە پاککرایەوە</td></tr>';
         sTab.innerHTML='<tr><td colspan="5" class="empty-cell">خشتە پاککرایەوە</td></tr>';
@@ -229,9 +348,9 @@ function loadAdminTimeData(){
     sTab.innerHTML='';
     
     let filt=users.filter(u=>u.role==='observer');
-    if(cir!=='all')filt=filt.filter(u=>u.circle===cir);
-    if(cen!=='all')filt=filt.filter(u=>u.center===cen);
-    if(sta!=='all')filt=filt.filter(u=>u.station===sta);
+    if(cir && cir!=='all')filt=filt.filter(u=>u.circle===cir);
+    if(cen && cen!=='all')filt=filt.filter(u=>u.center===cen);
+    if(sta && sta!=='all')filt=filt.filter(u=>u.station===sta);
     
     let mC=0,sC=0;
     filt.forEach(u=>{
@@ -241,7 +360,7 @@ function loadAdminTimeData(){
             sTab.innerHTML+=`<tr><td>${u.circle}</td><td>${u.center}</td><td>${u.station}</td><td style="color:var(--color-primary);font-weight:700;">${ent.count}</td><td>${((ent.count/450)*100).toFixed(1)}%</td></tr>`;
         }else{
             mC++;
-            mTab.innerHTML+=`<tr><td style="color:var(--color-danger);font-weight:700;">${u.username}</td><td>${u.circle}</td><td>${u.center}</td><td>${u.station}</td><td><span style="background:var(--color-danger-light);color:var(--color-danger);padding:4px 8px;border-radius:4px;font-size:11px;font-weight:700;">نەنێردراوە</span></td></tr>`;
+            mTab.innerHTML+=`<tr><td style="color:var(--color-danger);font-weight:700;">${u.username}</td><td>${u.circle}</td><td>${u.center}</td><td>${u.station}</td><td><span style="background:var(--color-danger-light);color:var(--color-danger);padding:4px 8px;border-radius:4px;font-size:11px;font-weight:700;">نەیانناردووە</span></td></tr>`;
         }
     });
     
