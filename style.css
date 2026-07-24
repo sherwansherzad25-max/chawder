@@ -1,8 +1,3 @@
-/* =========================================================
-   سیستەمی ئەلیکترۆنی هەڵبژاردن — دیزاینی نوێ
-   هەموو ناوی class/ID و گۆڕاوەکانی CSS وەک خۆیان ماونەتەوە
-   بۆ ئەوەی هیچ لۆجیکێکی script.js نەشکێت.
-   ========================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@500;600;700;800;900&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
 
@@ -174,6 +169,7 @@ body::after {
     font-family: inherit; transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
     background: var(--color-bg); color: var(--color-text); box-shadow: var(--shadow-inset);
 }
+.form-group .d-flex input { flex: 1 1 auto; min-width: 0; }
 .form-group input:focus, .input-with-gauge input:focus, .filter-grid select:focus, .data-section select:focus {
     outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 4px var(--color-primary-light);
     background: var(--color-card);
@@ -248,7 +244,7 @@ body::after {
 .header-buttons { display: flex; gap: 8px; flex-wrap: wrap; align-items: stretch; }
 .btn-sm-header { width: auto; padding: 0; flex: 1 1 0; min-width: 90px; }
 .btn-sm-header .btn-inner {
-    padding: 9px 12px; font-size: 12px; gap: 6px; border-radius: 10px;
+    padding: 11px 12px; font-size: 12px; gap: 6px; border-radius: 10px;
     white-space: nowrap; height: 100%;
 }
 .btn-sm-header .btn-svgs { flex-shrink: 0; }
