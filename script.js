@@ -179,7 +179,15 @@ function renderTimeChips(){const wrap=document.getElementById('timeChipWrap');if
 
 function selectTimeChip(k){document.getElementById('timeSlot').value=k;checkExistingData();renderTimeChips();}
 
-function renderGauge(id,perc){const el=document.getElementById(id);if(!el)return;const s=110,st=10,r=(s-st)/2,circ=2*Math.PI*r,cl=Math.max(0,Math.min(100,perc)),off=circ-(cl/100)*circ;el.innerHTML=`<svg width="${s}" height="${s}" viewBox="0 0 ${s} ${s}"><circle cx="${s/2}" cy="${s/2}" r="${r}" stroke="#E0E0E0" stroke-width="${st}" fill="none"></circle><circle cx="${s/2}" cy="${s/2}" r="${r}" stroke="#F4B860" stroke-width="${st}" fill="none" stroke-dasharray="${circ}" stroke-dashoffset="${off}" transform="rotate(-90 ${s/2} ${s/2})"></circle><text x="50%" y="52%" font-weight="800" font-size="17" text-anchor="middle" dominant-baseline="middle" fill="currentColor">${cl.toFixed(1)}%</text></svg>`;}
+function renderGauge(id,perc){
+    const el=document.getElementById(id);
+    if(!el)return;
+    const s=110,st=10,r=(s-st)/2,circ=2*Math.PI*r,cl=Math.max(0,Math.min(100,perc)),off=circ-(cl/100)*circ;
+    const computedStyle = getComputedStyle(document.documentElement);
+    const borderColor = computedStyle.getPropertyValue('--color-border').trim();
+    const accentColor = computedStyle.getPropertyValue('--color-accent').trim();
+    el.innerHTML=`<svg width="${s}" height="${s}" viewBox="0 0 ${s} ${s}"><circle cx="${s/2}" cy="${s/2}" r="${r}" stroke="${borderColor}" stroke-width="${st}" fill="none"></circle><circle cx="${s/2}" cy="${s/2}" r="${r}" stroke="${accentColor}" stroke-width="${st}" fill="none" stroke-dasharray="${circ}" stroke-dashoffset="${off}" transform="rotate(-90 ${s/2} ${s/2})"></circle><text x="50%" y="52%" font-weight="800" font-size="17" text-anchor="middle" dominant-baseline="middle" fill="currentColor">${cl.toFixed(1)}%</text></svg>`;
+}
 
 function calculateLivePercentage(){const val=document.getElementById('voterCount').value,div=document.getElementById('livePercentage');if(val===''||isNaN(val)){div.innerText='';document.getElementById('liveGaugeWrap').innerHTML='';return;}const c=parseInt(val);if(c>450){div.innerHTML='<span style="color:#D32F2F;">هەڵەیە (لە ٤٥٠ زیاترە)</span>';document.getElementById('liveGaugeWrap').innerHTML='';return;}div.innerText=`ڕێژەی سەدی: ${((c/450)*100).toFixed(1)}%`;renderGauge('liveGaugeWrap',(c/450)*100);}
 
@@ -265,12 +273,10 @@ function replyAdminNote(id, centerName, stationName){
     }
 }
 
-// ناردنی پەیامی گشتی لەلایەن ئەدمینەوە بۆ چاودێرەکان
 function sendAdminBroadcast(){
     const msg = document.getElementById('adminBroadcastMsg').value.trim();
     if(!msg) return alert("تکایە پەیامێک بنووسە");
     let notes = JSON.parse(localStorage.getItem('election_notes') || '[]');
-    // ناردنی وەڵامێک بۆ هەموو ئەو تێبینیانەی کە هیشتا وەڵام نەدراونەتەوە یان دروستکردنی پەیامی گشتی
     notes.forEach(n => {
         if(!n.reply){
             n.reply = msg;
